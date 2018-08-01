@@ -50,21 +50,17 @@ class MainActivity : AppCompatActivity() {
 
             val buildDate = it[key]?.opt("buildingCreateWestYear") as String? ?: ""
             val openTime = it[key]?.opt("openTime") as String? ?: ""
-            val padding = when (buildDate == "" && openTime == "") {
-                true -> ""
-                false -> "　　"
-            }
 
             data["latitude"] = latitude
             data["longitude"] = longitude
             data["name"] = it[key]?.opt("name") as String? ?: ""
-            data["建造日期"] = buildDate
-            data["年代$padding"] = it[key]?.opt("buildingYearName") as String? ?: ""
-            data["類型$padding"] = it[key]?.opt("typeName") as String? ?: ""
-            data["等級$padding"] = it[key]?.opt("level") as String? ?: ""
             data["開放時間"] = openTime
-            data["地址$padding"] = it[key]?.opt("address") as String? ?: ""
-            data["網址$padding"] = it[key]?.opt("srcWebsite") as String? ?: ""
+            data["建造日期"] = buildDate
+            data["年代"] = it[key]?.opt("buildingYearName") as String? ?: ""
+            data["類型"] = it[key]?.opt("typeName") as String? ?: ""
+            data["等級"] = it[key]?.opt("level") as String? ?: ""
+            data["地址"] = it[key]?.opt("address") as String? ?: ""
+            data["網址"] = it[key]?.opt("srcWebsite") as String? ?: ""
         }
 
         return data
