@@ -20,18 +20,18 @@ import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnItemClickListener {
 
-    private val data = mutableMapOf<String, String>()
+    private val detail = mutableMapOf<String, String>()
     private val defaultZoom = 16.0f
 
     companion object {
         private const val INTENT_KEY = "INTENT_KEY"
 
-        fun newIntent(context: Context, data: MutableMap<String, String>): Intent {
+        fun newIntent(context: Context, detail: MutableMap<String, String>): Intent {
             val intent = Intent(context, DetailActivity::class.java)
 
-            intent.putExtra(INTENT_KEY, data.keys.toTypedArray())
-            for (k in data.keys) {
-                intent.putExtra(k, data[k])
+            intent.putExtra(INTENT_KEY, detail.keys.toTypedArray())
+            for (k in detail.keys) {
+                intent.putExtra(k, detail[k])
             }
 
             return intent
@@ -42,12 +42,12 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        // load data
+        // load detail
         for (k in intent.getStringArrayExtra(INTENT_KEY)) {
-            data[k] = intent.getStringExtra(k)
+            detail[k] = intent.getStringExtra(k)
         }
 
-        this.title = data["name"]
+        this.title = detail["name"]
 
         // button to go back
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -71,17 +71,17 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
     }
 
     override fun onMapReady(mMap: GoogleMap?) {
-        val pos = LatLng(data["latitude"]?.toDouble() ?: 0.0, data["longitude"]?.toDouble() ?: 0.0)
-        mMap?.addMarker(MarkerOptions().position(pos).title(data["name"]))
+        val pos = LatLng(detail["latitude"]?.toDouble() ?: 0.0, detail["longitude"]?.toDouble() ?: 0.0)
+        mMap?.addMarker(MarkerOptions().position(pos).title(detail["name"]))
         mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, defaultZoom))
     }
 
     private fun loadAdapter(): ArrayAdapter<String> {
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1)
 
-        for (k in data.keys) {
-            if (data[k] != "" && k != "latitude" && k != "longitude" && k != "name") {
-                adapter.add("$k：${data[k]}")
+        for (k in detail.keys) {
+            if (detail[k] != "" && k != "latitude" && k != "longitude" && k != "name") {
+                adapter.add("$k：${detail[k]}")
             }
         }
 

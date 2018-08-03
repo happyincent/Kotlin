@@ -36,8 +36,6 @@ class BaseMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_map, container, false)
 
-//        mapView = childFragmentManager.findFragmentById(R.id.base_map) as SupportMapFragment
-//        mapView.getMapAsync(this)
         mapView = v.findViewById(R.id.base_map) as MapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
@@ -86,15 +84,15 @@ class BaseMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
             (activity as MainActivity).apiData[getString(urlID)]?.let {
                 for (key in it.keys) {
-                    it[key]?.let {
+                    it[key]?.let {detail ->
                         mMap?.addMarker(MarkerOptions()
                                 .title(key)
                                 .position(LatLng(
-                                        (it.opt("latitude") as String? ?: "0.0").toDouble(),
-                                        (it.opt("longitude") as String? ?: "0.0").toDouble()
+                                        (detail.opt("latitude") as String? ?: "0.0").toDouble(),
+                                        (detail.opt("longitude") as String? ?: "0.0").toDouble()
                                 ))
                                 .icon(icon)
-                        )?.tag = it.opt("typeName") as String? ?: "0.0"
+                        )?.tag = detail.opt("typeName") as String?
                     }
                 }
             }
@@ -116,10 +114,7 @@ class BaseMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         Data.URLs[marker?.tag]?.let {
             val url = getString(it)
             val key = marker?.title ?: ""
-
-            (activity as MainActivity).apiData[url]?.let {
-                startActivity(DetailActivity.newIntent(context!!, (activity as MainActivity).loadOne(url, key)))
-            }
+            startActivity(DetailActivity.newIntent(context!!, (activity as MainActivity).loadDetail(url, key)))
         }
     }
 

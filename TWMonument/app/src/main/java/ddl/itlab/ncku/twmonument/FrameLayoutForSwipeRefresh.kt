@@ -6,6 +6,8 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.FrameLayout
 
+/* Modified from
+ * https://stackoverflow.com/questions/25270171/scroll-up-does-not-work-with-swiperefreshlayout-in-listview/27690074 */
 class FrameLayoutForSwipeRefresh : FrameLayout {
     @JvmOverloads
     constructor(

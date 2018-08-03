@@ -33,37 +33,37 @@ object Data {
 
 class MainActivity : AppCompatActivity() {
 
-    /** data **/
+    /** public: all data **/
     val apiData = HashMap<String, MutableMap<String, JSONObject>>()
 
-    /** load one data **/
-    fun loadOne(url: String, key: String): MutableMap<String, String> {
-        val data = mutableMapOf<String, String>()
+    /** public: load one data **/
+    fun loadDetail(url: String, key: String): MutableMap<String, String> {
+        val detail = mutableMapOf<String, String>()
 
         apiData[url]?.let {
             var latitude = (it[key]?.opt("latitude") as String? ?: "0.0")
             var longitude = (it[key]?.opt("longitude") as String? ?: "0.0")
             // swap error data
             if (longitude.toDouble() < latitude.toDouble()) {
-                longitude = latitude.also { latitude = longitude }
+                longitude = latitude.apply { latitude = longitude }
             }
 
             val buildDate = it[key]?.opt("buildingCreateWestYear") as String? ?: ""
             val openTime = it[key]?.opt("openTime") as String? ?: ""
 
-            data["latitude"] = latitude
-            data["longitude"] = longitude
-            data["name"] = it[key]?.opt("name") as String? ?: ""
-            data["開放時間"] = openTime
-            data["建造日期"] = buildDate
-            data["年代"] = it[key]?.opt("buildingYearName") as String? ?: ""
-            data["類型"] = it[key]?.opt("typeName") as String? ?: ""
-            data["等級"] = it[key]?.opt("level") as String? ?: ""
-            data["地址"] = it[key]?.opt("address") as String? ?: ""
-            data["網址"] = it[key]?.opt("srcWebsite") as String? ?: ""
+            detail["latitude"] = latitude
+            detail["longitude"] = longitude
+            detail["name"] = it[key]?.opt("name") as String? ?: ""
+            detail["開放時間"] = openTime
+            detail["建造日期"] = buildDate
+            detail["年代"] = it[key]?.opt("buildingYearName") as String? ?: ""
+            detail["類型"] = it[key]?.opt("typeName") as String? ?: ""
+            detail["等級"] = it[key]?.opt("level") as String? ?: ""
+            detail["地址"] = it[key]?.opt("address") as String? ?: ""
+            detail["網址"] = it[key]?.opt("srcWebsite") as String? ?: ""
         }
 
-        return data
+        return detail
     }
 
     /** savedInstanceState **/

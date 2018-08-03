@@ -18,8 +18,9 @@ class SplashActivity : AppCompatActivity() {
         v.gravity = Gravity.CENTER
         toast.show()
 
-        // remove back activity
         startActivity(Intent(this, MainActivity::class.java))
+
+        // remove back activity
         finish()
     }
 

@@ -82,8 +82,8 @@ class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            it.getString(INSTANCE_URL)?.let {
-                url = it
+            it.getString(INSTANCE_URL)?.let { arg_url ->
+                url = arg_url
             }
         }
     }
@@ -105,7 +105,7 @@ class BaseFragment : Fragment() {
             listView1.setOnItemClickListener { _, _, i, _ ->
                 listView1?.let {
                     val adapter = it.adapter as BaseListAdapter
-                    startActivity(DetailActivity.newIntent(context!!, (activity as MainActivity).loadOne(url, adapter.map.keys.elementAt(i))))
+                    startActivity(DetailActivity.newIntent(context!!, (activity as MainActivity).loadDetail(url, adapter.map.keys.elementAt(i))))
                 }
             }
         }
@@ -125,8 +125,8 @@ class BaseFragment : Fragment() {
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextChange(query: String?): Boolean {
-                    listView1?.let {
-                        val adapter = it.adapter as BaseListAdapter
+                    listView1?.let { view ->
+                        val adapter = view.adapter as BaseListAdapter
                         adapter.map = distance.filterKeys { it.contains(query.toString()) }.toMutableMap()
                         adapter.notifyDataSetChanged()
                     }
