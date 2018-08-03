@@ -2,7 +2,7 @@ package ddl.itlab.ncku.twmonument
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+//import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -99,7 +99,8 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
 
     private fun openURL(url: String) {
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            startActivity(WebActivity.newIntent(this, url))
         }
         catch (e: Exception) {
             Toast.makeText(this, "Failed to open \"$url\"", Toast.LENGTH_SHORT).show()
