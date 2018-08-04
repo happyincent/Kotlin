@@ -248,8 +248,8 @@ class MainActivity : AppCompatActivity() {
     /** UI reload **/
     private fun loadFragments() {
         fragNavController.rootFragments = listOf(
-                BaseFragment.newInstance(getString(R.string.url_monument)),
-                BaseFragment.newInstance(getString(R.string.url_history)),
+                BaseListFragment.newInstance(getString(R.string.url_monument)),
+                BaseListFragment.newInstance(getString(R.string.url_history)),
                 BaseMapFragment()
         )
 

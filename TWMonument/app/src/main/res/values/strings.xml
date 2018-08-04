@@ -14,6 +14,7 @@
     <string name="loc_err_msg">無法取得位置資訊!!</string>
     <string name="myLocationRequestCode">17106</string>
     <string name="here_title">現在位置</string>
+    <string name="copy_text">已複製：</string>
 
     <string name="splash_text1">資料來源：data.gov.tw</string>
     <string name="splash_text2">Copyright © 2018 DDL</string>

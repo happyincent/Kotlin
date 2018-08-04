@@ -17,6 +17,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_detail.*
+import android.content.ClipData
+import android.content.ClipboardManager
+
 
 class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnItemClickListener {
 
@@ -47,7 +50,9 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
             detail[k] = intent.getStringExtra(k)
         }
 
-        this.title = detail["name"]
+        // setup title
+        this.title = detail["name"] ?: ""
+        copyText(this.title as String)
 
         // button to go back
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -91,10 +96,20 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
     override fun onItemClick(adapter: AdapterView<*>?, v: View?, i: Int, l: Long) {
         adapter?.getItemAtPosition(i).let {
             val str = it.toString()
+            val description = str.split("：").last()
+
+            copyText(description)
+
             if (str.contains("網址")) {
-                openURL(str.split("：").last())
+                openURL(description)
             }
         }
+    }
+
+    private fun copyText(str: String) {
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.primaryClip = ClipData.newPlainText("text", str)
+        Toast.makeText(this, "${getString(R.string.copy_text)}$str", Toast.LENGTH_SHORT).show()
     }
 
     private fun openURL(url: String) {
