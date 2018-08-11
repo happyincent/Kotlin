@@ -21,7 +21,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 
 
-class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnItemClickListener {
+class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private val detail = mutableMapOf<String, String>()
     private val defaultZoom = 16.0f
@@ -60,6 +60,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
         // setup listView
         listView2.adapter = loadAdapter()
         listView2.onItemClickListener = this
+        listView2.onItemLongClickListener = this
 
         // setup map
         val mapFragment = supportFragmentManager
@@ -104,6 +105,17 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
                 openURL(description)
             }
         }
+    }
+
+    override fun onItemLongClick(adapter: AdapterView<*>?, v: View?, i: Int, l: Long): Boolean {
+        adapter?.getItemAtPosition(i).let {
+            val str = it.toString()
+            val description = str.split("：").last()
+
+            copyText(description)
+        }
+
+        return true
     }
 
     private fun copyText(str: String) {
