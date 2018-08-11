@@ -99,8 +99,6 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnIt
             val str = it.toString()
             val description = str.split("：").last()
 
-            copyText(description)
-
             if (str.contains("網址")) {
                 openURL(description)
             }
