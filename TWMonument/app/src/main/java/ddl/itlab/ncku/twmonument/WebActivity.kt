@@ -4,8 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
@@ -38,6 +42,8 @@ class WebActivity : AppCompatActivity() {
         // setup webview
         findViewById<WebView>(R.id.webView1).let {
             it.settings.javaScriptEnabled = true
+            it.settings.allowContentAccess = true
+            it.settings.domStorageEnabled = true
             it.webViewClient = WebViewClient()
             it.loadUrl(url)
         }
