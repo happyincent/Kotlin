@@ -302,4 +302,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** UI pause **/
+    override fun onPause() {
+        super.onPause()
+        refreshLayout1.isRefreshing = false
+        locationManager.removeUpdates(locationListenerNET)
+        locationManager.removeUpdates(locationListenerGPS)
+    }
+
 }
