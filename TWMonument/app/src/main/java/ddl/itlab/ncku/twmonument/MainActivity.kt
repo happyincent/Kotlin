@@ -146,8 +146,10 @@ class MainActivity : AppCompatActivity() {
             println("requestSingleUpdate ...")
             refreshLayout1.isRefreshing = true
 
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListenerNET, null)
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListenerGPS, null)
+//            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListenerNET, null)
+//            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListenerGPS, null)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListenerNET)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListenerGPS)
 
             Handler().postDelayed({
                 locationManager.removeUpdates(locationListenerNET)
