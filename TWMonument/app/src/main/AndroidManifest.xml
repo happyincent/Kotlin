@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
 
         android:resizeableActivity="false"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".SplashActivity"
