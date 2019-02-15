@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 //import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_detail.*
 import android.content.ClipData
 import android.content.ClipboardManager
-
 
 class DetailActivity : AppCompatActivity(), OnMapReadyCallback, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 

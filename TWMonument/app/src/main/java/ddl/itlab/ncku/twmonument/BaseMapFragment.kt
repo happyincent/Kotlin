@@ -3,14 +3,14 @@ package ddl.itlab.ncku.twmonument
 import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.Marker
@@ -49,21 +49,19 @@ class BaseMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        if (menu != null && inflater != null) {
-            inflater.inflate(R.menu.mapbar, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.mapbar, menu)
 
-            menu.findItem(R.id.refreshBtn).setOnMenuItemClickListener {
-                (activity as MainActivity).requestLocation()
-                return@setOnMenuItemClickListener true
-            }
+        menu.findItem(R.id.refreshBtn).setOnMenuItemClickListener {
+            (activity as MainActivity).requestLocation()
+            return@setOnMenuItemClickListener true
+        }
 
-            menu.findItem(R.id.locateBtn).setOnMenuItemClickListener {
-                if (this::map.isInitialized) {
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(here, defaultZoom))
-                }
-                return@setOnMenuItemClickListener true
+        menu.findItem(R.id.locateBtn).setOnMenuItemClickListener {
+            if (this::map.isInitialized) {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(here, defaultZoom))
             }
+            return@setOnMenuItemClickListener true
         }
 
         super.onCreateOptionsMenu(menu, inflater)

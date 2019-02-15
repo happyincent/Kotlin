@@ -6,16 +6,16 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.preference.PreferenceManager
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.view.View
 import android.widget.Toast
 import com.ncapdevi.fragnav.FragNavController
@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun parseJSON(url: String, str: String) {
+    private fun parseJSON(url: String, str: String?) {
         val data = HashMap<String, JSONObject>()
         val json = JSONArray(str)
 

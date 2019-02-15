@@ -3,9 +3,9 @@ package ddl.itlab.ncku.twmonument
 import android.location.Location
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.*
-import android.support.v7.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.json.JSONObject
@@ -117,27 +117,25 @@ class BaseListFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        if (menu != null && inflater != null) {
-            inflater.inflate(R.menu.basebar, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.basebar, menu)
 
-            val searchView = menu.findItem(R.id.searchBtn).actionView as SearchView
+        val searchView = menu.findItem(R.id.searchBtn).actionView as SearchView
 
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-                override fun onQueryTextChange(query: String?): Boolean {
-                    listView1?.let { view ->
-                        val adapter = view.adapter as BaseListAdapter
-                        adapter.map = distance.filterKeys { it.contains(query.toString()) }.toMutableMap()
-                        adapter.notifyDataSetChanged()
-                    }
-                    return false
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextChange(query: String?): Boolean {
+                listView1?.let { view ->
+                    val adapter = view.adapter as BaseListAdapter
+                    adapter.map = distance.filterKeys { it.contains(query.toString()) }.toMutableMap()
+                    adapter.notifyDataSetChanged()
                 }
+                return false
+            }
 
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-            })
-        }
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+        })
 
         super.onCreateOptionsMenu(menu, inflater)
     }
